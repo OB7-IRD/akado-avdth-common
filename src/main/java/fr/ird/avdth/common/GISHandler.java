@@ -30,9 +30,9 @@ import java.util.logging.Logger;
 import org.h2gis.h2spatialext.CreateSpatialExtension;
 
 /**
- * Utilitaire de cr√©ation des bases de donn√©es GIS pour les r√®gles de
+ * Utilitaire de crÈation des bases de donnÈes GIS pour les rËgles de
  * validations incluant des zones spatiales. Il repose sur la librairie H2Gis
- * d√©velopp√© au CNRS et charge des donn√©es provenant de fichier au format SHP.
+ * dÈveloppÈ au CNRS et charge des donnÈes provenant de fichier au format SHP.
  *
  * @see <a href="http://www.h2gis.org/">site de H2Gis</a>
  *
@@ -78,7 +78,7 @@ public class GISHandler {
 //    }
 //    private final String SHP_RESOURCE_IN_JAR = "fr/ird/akado/avdth/shp";
     /**
-     * V√©rifie si les bases de donn√©es sont d√©j√† cr√©√©es.
+     * VÈrifie si les bases de donnÈes sont dÈj‡† crÈÈes.
      *
      * @return true if exists
      */
@@ -87,7 +87,7 @@ public class GISHandler {
     }
 
     /**
-     * Supprime les bases de donn√©es existantes.
+     * Supprime les bases de donnÈes existantes.
      *
      * @return true if the db are deleted
      */
@@ -96,7 +96,7 @@ public class GISHandler {
     }
 
     /**
-     * Cr√©er les bases de donn√©es GIS en chargeant les donn√©es de fichier au
+     * CrÈer les bases de donnÈes GIS en chargeant les donnÈes de fichier au
      * format SHP.
      *
      *
@@ -109,12 +109,12 @@ public class GISHandler {
 
             try {
                 Class.forName("org.h2.Driver");
-                //System.out.println("J'ai chop√© le driver");
+                //System.out.println("J'ai chopÈ le driver");
                 try (Connection connection = DriverManager.getConnection("jdbc:h2:" + dbPath);
                         Statement st = connection.createStatement()) {
                     // Import spatial functions, domains and drivers
                     // If you are using a file database, you have to do only that once.
-                    //System.out.println("Apr√®s STatement");
+                    //System.out.println("Apr‡®s STatement");
                     CreateSpatialExtension.initSpatialExtension(connection);
                     System.out.println("SHP_OCEAN_PATH " + oceanShapePath);
                     st.execute("DROP TABLE IF EXISTS seasandoceans;");
@@ -161,7 +161,7 @@ public class GISHandler {
 
     /**
      *
-     * @return une connexion √† la base
+     * @return une connexion ‡ la base
      */
     public Connection getConnection() {
 //        System.out.println("DB Path" + dbPath);

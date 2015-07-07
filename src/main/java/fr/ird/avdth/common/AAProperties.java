@@ -87,4 +87,6 @@ public class AAProperties {
 //        return p;
 //    }
     public static String ANAPO_DB_URL;
+    public static final  String KEY_L10N = "lang";
+    public static String L10N = "fr";
 }
