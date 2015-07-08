@@ -87,6 +87,13 @@ public class AAProperties {
 //        return p;
 //    }
     public static String ANAPO_DB_URL;
-    public static final  String KEY_L10N = "lang";
+
+    public static final String KEY_L10N = "lang";
     public static String L10N = "fr";
+
+    public final static String KEY_THRESHOLD_CLASS_ONE = "threshold_class_one";
+    public final static  String KEY_THRESHOLD_CLASS_TWO = "threshold_class_two";
+    
+    public static double THRESHOLD_CLASS_ONE = 15d;
+    public static double THRESHOLD_CLASS_TWO = 30d;
 }
