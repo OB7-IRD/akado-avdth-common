@@ -43,6 +43,7 @@ public class AAProperties {
     public static final String KEY_WELL_INSPECTOR = "well_inspector";
     public static final String KEY_TRIP_INSPECTOR = "trip_inspector";
     public static final String KEY_POSITION_INSPECTOR = "position_inspector";
+    public static final String KEY_ANAPO_INSPECTOR = "anapo_inspector";
     public static final String KEY_ACTIVITY_INSPECTOR = "activity_inspector";
     public static final String KEY_WARNING_INSPECTOR = "warning_inspector";
 
@@ -64,6 +65,8 @@ public class AAProperties {
     public static String POSITION_INSPECTOR;
     public static String ACTIVITY_INSPECTOR;
     public static String WARNING_INSPECTOR;
+    
+    public static String ANAPO_INSPECTOR = DISABLE_VALUE;
 
 //    public static Properties getDefaultProperties() {
 //        Properties p = new Properties();
