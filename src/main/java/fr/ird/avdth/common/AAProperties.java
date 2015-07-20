@@ -32,6 +32,8 @@ package fr.ird.avdth.common;
  */
 public class AAProperties {
 
+    public static String PROTOCOL_JDBC_ACCESS;
+
     public static final String KEY_STANDARD_DIRECTORY = "standard_directory";
     public static final String KEY_LOGS_DIRECTORY = "logs_directory";
     public static final String KEY_SHP_COUNTRIES_PATH = "SHP_COUNTRIES";
@@ -65,7 +67,7 @@ public class AAProperties {
     public static String POSITION_INSPECTOR;
     public static String ACTIVITY_INSPECTOR;
     public static String WARNING_INSPECTOR;
-    
+
     public static String ANAPO_INSPECTOR = DISABLE_VALUE;
 
 //    public static Properties getDefaultProperties() {
@@ -90,13 +92,15 @@ public class AAProperties {
 //        return p;
 //    }
     public static String ANAPO_DB_URL;
+    public static String ANAPO_USER = "";
+    public static String ANAPO_PASSWORD = "";
 
     public static final String KEY_L10N = "lang";
     public static String L10N = "fr";
 
     public final static String KEY_THRESHOLD_CLASS_ONE = "threshold_class_one";
-    public final static  String KEY_THRESHOLD_CLASS_TWO = "threshold_class_two";
-    
+    public final static String KEY_THRESHOLD_CLASS_TWO = "threshold_class_two";
+
     public static double THRESHOLD_CLASS_ONE = 15d;
     public static double THRESHOLD_CLASS_TWO = 30d;
 }
