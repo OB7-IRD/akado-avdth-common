@@ -35,7 +35,6 @@ public class AAProperties {
     public static String PROTOCOL_JDBC_ACCESS;
 
     public static final String KEY_STANDARD_DIRECTORY = "standard_directory";
-    public static final String KEY_LOGS_DIRECTORY = "logs_directory";
     public static final String KEY_SHP_COUNTRIES_PATH = "SHP_COUNTRIES";
     public static final String KEY_SHP_OCEAN_PATH = "SHP_IHO_OCEANS";
     public static final String KEY_DATE_FORMAT_XLS = "date_xls";
@@ -54,9 +53,8 @@ public class AAProperties {
     public static final String ACTIVE_VALUE = "active";
     public static final String DISABLE_VALUE = "disable";
 
-    public static String DATE_FORMAT_XLS;
+    public static String DATE_FORMAT_XLS = "dd/mm/yyyy hh:mm";
     public static String STANDARD_DIRECTORY;
-    public static String LOGS_DIRECTORY;
     public static String SHP_COUNTRIES_PATH;
     public static String SHP_OCEAN_PATH;
     public static String RESULT_MODEL_AVDTH_XLS;

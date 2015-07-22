@@ -150,6 +150,7 @@ public class GISHandler {
 
     /**
      * Getter on the database connection
+     *
      * @return a database connection
      */
     public Connection getConnection() {
