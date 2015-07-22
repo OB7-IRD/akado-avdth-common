@@ -30,9 +30,9 @@ import java.util.logging.Logger;
 import org.h2gis.h2spatialext.CreateSpatialExtension;
 
 /**
- * Utilitaire de création des bases de données GIS pour les règles de
- * validations incluant des zones spatiales. Il repose sur la librairie H2Gis
- * développé au CNRS et charge des données provenant de fichier au format SHP.
+ * Create the GIS databases for validation rules including spatial areas. It is
+ * based on H2Gis library developed at CNRS and loads data from the SHP file
+ * format.
  *
  * @see <a href="http://www.h2gis.org/">site de H2Gis</a>
  *
@@ -67,18 +67,9 @@ public class GISHandler {
         this.oceanShapePath = oceanShapePath;
     }
 
-//    public static boolean GISDBexists() {
-//        return new GISHandler().exists(AAProperties.STANDARD_DIRECTORY);
-//    }
-//    public static void main(String[] args) {
-//        if (AAProperties.STANDARD_DIRECTORY == null) {
-//            AAProperties.getService().init();
-//        }
-//        createGISDB();
-//    }
-//    private final String SHP_RESOURCE_IN_JAR = "fr/ird/akado/avdth/shp";
     /**
-     * Vérifie si les bases de données sont déjà  créées.
+     *
+     * Checks whether the databases are already created.
      *
      * @return true if exists
      */
@@ -87,7 +78,7 @@ public class GISHandler {
     }
 
     /**
-     * Supprime les bases de données existantes.
+     * Delete existing databases.
      *
      * @return true if the db are deleted
      */
@@ -96,9 +87,7 @@ public class GISHandler {
     }
 
     /**
-     * Créer les bases de données GIS en chargeant les données de fichier au
-     * format SHP.
-     *
+     * Create the GIS databe by loading the file data
      *
      */
     public void create() {
@@ -109,12 +98,12 @@ public class GISHandler {
 
             try {
                 Class.forName("org.h2.Driver");
-                //System.out.println("J'ai chopé le driver");
+                //System.out.println("J'ai chope le driver");
                 try (Connection connection = DriverManager.getConnection("jdbc:h2:" + dbPath);
                         Statement st = connection.createStatement()) {
                     // Import spatial functions, domains and drivers
                     // If you are using a file database, you have to do only that once.
-                    //System.out.println("Aprà¨s STatement");
+                    //System.out.println("Apres STatement");
                     CreateSpatialExtension.initSpatialExtension(connection);
                     System.out.println("SHP_OCEAN_PATH " + oceanShapePath);
                     st.execute("DROP TABLE IF EXISTS seasandoceans;");
@@ -160,8 +149,8 @@ public class GISHandler {
     private Connection connection;
 
     /**
-     *
-     * @return une connexion à la base
+     * Getter on the database connection
+     * @return a database connection
      */
     public Connection getConnection() {
 //        System.out.println("DB Path" + dbPath);
