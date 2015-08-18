@@ -159,7 +159,7 @@ public class GISHandler {
 
             try {
                 Class.forName("org.h2.Driver");
-                String url = "jdbc:h2:" + dbPath + ";ACCESS_MODE_DATA=R";
+                String url = "jdbc:h2:" + dbPath + ";ACCESS_MODE_DATA=R;DB_CLOSE_ON_EXIT=FALSE";
                 //System.out.println("URL DB GIS " + url);
                 connection = DriverManager.getConnection(url);
             } catch (ClassNotFoundException ex) {
