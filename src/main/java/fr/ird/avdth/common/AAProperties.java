@@ -1,6 +1,4 @@
 /*
- * $Id: AAProperties.java 556 2015-03-23 13:08:53Z lebranch $
- *
  * Copyright (C) 2014 Observatoire thonier, IRD
  *
  * This program is free software: you can redistribute it and/or modify
@@ -25,10 +23,6 @@ package fr.ird.avdth.common;
  * @author Julien Lebranchu <julien.lebranchu@ird.fr>
  * @since 2.0
  * @date 24 juin 2014
- *
- * $LastChangedDate: 2015-03-23 14:08:53 +0100 (lun., 23 mars 2015) $
- *
- * $LastChangedRevision: 556 $
  */
 public class AAProperties {
 

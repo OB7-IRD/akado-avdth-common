@@ -1,6 +1,4 @@
 /*
- * $Id: GISHandler.java 591 2015-05-04 15:43:29Z lebranch $
- *
  * Copyright (C) 2014 Observatoire thonier, IRD
  *
  * This program is free software: you can redistribute it and/or modify
@@ -39,10 +37,6 @@ import org.h2gis.h2spatialext.CreateSpatialExtension;
  * @author Julien Lebranchu <julien.lebranchu@ird.fr>
  * @since 2.0
  * @date 30 juin 2014
- *
- * $LastChangedDate: 2015-05-04 17:43:29 +0200 (lun., 04 mai 2015) $
- *
- * $LastChangedRevision: 591 $
  */
 public class GISHandler {
 
@@ -92,7 +86,7 @@ public class GISHandler {
      */
     public void create() {
 
-//        System.out.println("File :" + dbPath + ", File exits " + (new File(dbPath + ".h2.db")).exists());
+        System.out.println("File :" + dbPath + ", File exits " + (new File(dbPath + ".h2.db")).exists());
         if (!(new File(dbPath + ".h2.db")).exists()) {
             System.out.println("Create the GIS database.");
 
