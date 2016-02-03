@@ -32,12 +32,13 @@ public class AAProperties {
     public static final String KEY_SHP_COUNTRIES_PATH = "SHP_COUNTRIES";
     public static final String KEY_SHP_OCEAN_PATH = "SHP_IHO_OCEANS";
     public static final String KEY_DATE_FORMAT_XLS = "date_xls";
-    
+
     public static final String KEY_SAMPLE_INSPECTOR = "sample_inspector";
     public static final String KEY_WELL_INSPECTOR = "well_inspector";
     public static final String KEY_TRIP_INSPECTOR = "trip_inspector";
     public static final String KEY_POSITION_INSPECTOR = "position_inspector";
     public static final String KEY_ANAPO_INSPECTOR = "anapo_inspector";
+    public static final String KEY_ANAPO_VMS_COUNTRY = "anapo_vms_country_list";
     public static final String KEY_ACTIVITY_INSPECTOR = "activity_inspector";
     public static final String KEY_WARNING_INSPECTOR = "warning_inspector";
 
@@ -93,4 +94,5 @@ public class AAProperties {
 
     public static double THRESHOLD_CLASS_ONE = 15d;
     public static double THRESHOLD_CLASS_TWO = 30d;
+    public static String ANAPO_VMS_COUNTRY = "1|41";
 }
