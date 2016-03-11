@@ -30,6 +30,7 @@ public class AAProperties {
 
     public static final String KEY_STANDARD_DIRECTORY = "standard_directory";
     public static final String KEY_SHP_COUNTRIES_PATH = "SHP_COUNTRIES";
+    public static final String KEY_SHP_HARBOUR_PATH = "SHP_HARBOUR";
     public static final String KEY_SHP_OCEAN_PATH = "SHP_IHO_OCEANS";
     public static final String KEY_DATE_FORMAT_XLS = "date_xls";
 
@@ -51,6 +52,7 @@ public class AAProperties {
     public static String STANDARD_DIRECTORY;
     public static String SHP_COUNTRIES_PATH;
     public static String SHP_OCEAN_PATH;
+    public static String SHP_HARBOUR_PATH;
 
     public static String SAMPLE_INSPECTOR;
     public static String WELL_INSPECTOR;
@@ -61,27 +63,6 @@ public class AAProperties {
 
     public static String ANAPO_INSPECTOR = DISABLE_VALUE;
 
-//    public static Properties getDefaultProperties() {
-//        Properties p = new Properties();
-//        p.setProperty(KEY_SAMPLE_INSPECTOR, ACTIVE_VALUE);
-//        p.setProperty(KEY_TRIP_INSPECTOR, ACTIVE_VALUE);
-//        p.setProperty(KEY_ACTIVITY_INSPECTOR, ACTIVE_VALUE);
-//        p.setProperty(KEY_POSITION_INSPECTOR, ACTIVE_VALUE);
-//        p.setProperty(KEY_WELL_INSPECTOR, ACTIVE_VALUE);
-//        p.setProperty(KEY_WARNING_INSPECTOR, ACTIVE_VALUE);
-//
-//        p.setProperty(KEY_STANDARD_DIRECTORY, STANDARD_DIRECTORY);
-//        p.setProperty(KEY_LOGS_DIRECTORY, LOGS_DIRECTORY);
-//        p.setProperty(KEY_RESULT_MODEL_AVDTH_XLS, RESULT_MODEL_AVDTH_XLS);
-//        p.setProperty(KEY_SHP_COUNTRIES_PATH, SHP_COUNTRIES_PATH);
-//        p.setProperty(KEY_SHP_OCEAN_PATH, SHP_OCEAN_PATH);
-//        p.setProperty(KEY_DATE_FORMAT_XLS, DATE_FORMAT_XLS);
-//
-//        System.out.println("**************************");
-//        System.out.println(p);
-//        System.out.println("**************************");
-//        return p;
-//    }
     public static String ANAPO_DB_URL;
     public static String ANAPO_USER = "";
     public static String ANAPO_PASSWORD = "";

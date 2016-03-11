@@ -50,8 +50,9 @@ public class GISHandler {
     public static GISHandler getService() {
         return service;
     }
+    private String harbourShapePath;
 
-    public void init(String directoryPath, String countryShapePath, String oceanShapePath) throws Exception {
+    public void init(String directoryPath, String countryShapePath, String oceanShapePath, String harbourShapePath) throws Exception {
         if (directoryPath == null) {
             throw new Exception("The directory path is null.");
         } else {
@@ -59,6 +60,7 @@ public class GISHandler {
         }
         this.countryShapePath = countryShapePath;
         this.oceanShapePath = oceanShapePath;
+        this.harbourShapePath = harbourShapePath;
     }
 
     /**
@@ -131,6 +133,22 @@ public class GISHandler {
                             System.out.println(tmp);
                         }
                     }
+//System.out.println("SHP_COUNTRIES_PATH " + AAProperties.SHP_COUNTRIES_PATH);
+                    st.execute("DROP TABLE IF EXISTS harbour;");
+                    st.execute("DROP TABLE IF EXISTS tmpharbour;");
+                    st.execute("CALL FILE_TABLE('" + harbourShapePath + "', 'tmpharbour')");
+                    st.execute("CREATE TABLE harbour AS SELECT ROW_NUMBER() OVER ( ) AS pkid, * FROM tmpharbour;");
+                    st.execute("ALTER TABLE harbour ALTER COLUMN pkid SET NOT NULL;");
+                    st.execute("ALTER TABLE harbour ADD CONSTRAINT pk_harbour_pkid PRIMARY KEY(pkid);");
+                    st.execute("CREATE SPATIAL INDEX harbour_spatialindex ON harbour (the_geom);");
+                    st.execute("DROP TABLE IF EXISTS tmpharbour;");
+                    try (ResultSet rs = st.executeQuery("SELECT count(*) AS rowcount FROM harbour")) {
+                        while (rs.next()) {
+                            String tmp = "There is " + rs.getInt("rowcount") + " harbours in the database.";
+                            System.out.println(tmp);
+                        }
+                    }
+
                 }
             } catch (SQLException ex) {
                 JDBCUtilities.printSQLException(ex);
