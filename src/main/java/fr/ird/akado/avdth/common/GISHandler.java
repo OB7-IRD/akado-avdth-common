@@ -14,7 +14,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-package fr.ird.avdth.common;
+package fr.ird.akado.avdth.common;
 
 import fr.ird.common.JDBCUtilities;
 import java.io.File;
@@ -40,7 +40,7 @@ import org.h2gis.h2spatialext.CreateSpatialExtension;
  */
 public class GISHandler {
 
-    private static final GISHandler service = new GISHandler();
+    private static final GISHandler SERVICE = new GISHandler();
     public static final String OT_DB_GIS_NAME = "OTStandardGIS";
 
     private String dbPath;
@@ -48,13 +48,13 @@ public class GISHandler {
     private String oceanShapePath;
 
     public static GISHandler getService() {
-        return service;
+        return SERVICE;
     }
     private String harbourShapePath;
 
-    public void init(String directoryPath, String countryShapePath, String oceanShapePath, String harbourShapePath) throws Exception {
+    public void init(String directoryPath, String countryShapePath, String oceanShapePath, String harbourShapePath) throws AkadoException {
         if (directoryPath == null) {
-            throw new Exception("The directory path is null.");
+            throw new AkadoException("The directory path is null.");
         } else {
             this.dbPath = directoryPath + File.separator + OT_DB_GIS_NAME;
         }

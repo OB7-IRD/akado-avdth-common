@@ -14,16 +14,20 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-package fr.ird.avdth.common;
+package fr.ird.akado.avdth.common;
 
 /**
  *
  * @author Julien Lebranchu <julien.lebranchu@ird.fr>
  */
 public class AkadoException extends Exception {
-    
+
     public AkadoException(String message) {
         super(message);
     }
-    
+
+    public AkadoException(String message, Exception e) {
+        super(message, e);
+    }
+
 }
