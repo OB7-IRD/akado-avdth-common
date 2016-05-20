@@ -44,6 +44,7 @@ public class AAProperties {
     public static final String KEY_WARNING_INSPECTOR = "warning_inspector";
 
     public static final String KEY_ANAPO_DB_PATH = "anapo_db";
+    public static final String KEY_RESULTS_OUTPUT = "results_output";
 
     public static final String ACTIVE_VALUE = "active";
     public static final String DISABLE_VALUE = "disable";
@@ -76,4 +77,5 @@ public class AAProperties {
     public static double THRESHOLD_CLASS_ONE = 15d;
     public static double THRESHOLD_CLASS_TWO = 30d;
     public static String ANAPO_VMS_COUNTRY = "1|41";
+    public static String RESULTS_OUTPUT = "active";
 }
