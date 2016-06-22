@@ -20,12 +20,18 @@
             <version>1.2</version>
             <type>jar</type>
         </dependency>
+        <!-- http://mvnrepository.com/artifact/org.orbisgis/h2gis -->
+        <dependency>
+            <groupId>org.orbisgis</groupId>
+            <artifactId>h2gis</artifactId>
+            <version>1.2.4</version>
+            <type>pom</type>
+        </dependency>
         <dependency>
             <groupId>org.orbisgis</groupId>
             <artifactId>h2spatial-ext</artifactId>
-            <version>1.2.0</version>
-            <type>jar</type>
-        </dependency>
+            <version>1.2.4</version>
+        </dependency>    
     </dependencies>
 
     <properties>
