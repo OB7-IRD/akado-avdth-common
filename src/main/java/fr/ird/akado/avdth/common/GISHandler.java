@@ -17,6 +17,7 @@
 package fr.ird.akado.avdth.common;
 
 import fr.ird.common.JDBCUtilities;
+import fr.ird.common.log.LogService;
 import java.io.File;
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -88,9 +89,9 @@ public class GISHandler {
      */
     public void create() {
 
-        System.out.println("File :" + dbPath + ", File exits " + (new File(dbPath + ".h2.db")).exists());
+        LogService.getService(GISHandler.class).logApplicationDebug("File :" + dbPath + ", File exits " + (new File(dbPath + ".h2.db")).exists());
         if (!(new File(dbPath + ".h2.db")).exists()) {
-            System.out.println("Create the GIS database.");
+            LogService.getService(GISHandler.class).logApplicationInfo("Create the GIS database.");
 
             try {
                 Class.forName("org.h2.Driver");
@@ -101,54 +102,85 @@ public class GISHandler {
                     // If you are using a file database, you have to do only that once.
                     //System.out.println("Apres STatement");
                     CreateSpatialExtension.initSpatialExtension(connection);
-                    System.out.println("SHP_OCEAN_PATH " + oceanShapePath);
+//                    System.out.println("SHP_OCEAN_PATH " + oceanShapePath);
                     st.execute("DROP TABLE IF EXISTS seasandoceans;");
                     st.execute("DROP TABLE IF EXISTS tmpseasandoceans;");
                     st.execute("CALL SHPRead('" + oceanShapePath + "', 'tmpseasandoceans');");
 //                    st.execute("CALL FILE_TABLE('" + AAProperties.SHP_OCEAN_PATH + "', 'tmpseasandoceans')");
-                    st.execute("CREATE TABLE seasandoceans AS SELECT ROW_NUMBER() OVER () AS pkid, * FROM tmpseasandoceans;");
+                    st.execute("CREATE TABLE seasandoceans AS SELECT  * FROM tmpseasandoceans;");
 //                    st.execute("CALL SHPRead('" + AAProperties.SHP_OCEAN_PATH + "', 'seasandoceans');");
-                    st.execute("ALTER TABLE seasandoceans ALTER COLUMN pkid SET NOT NULL;");
-                    st.execute("ALTER TABLE seasandoceans ADD CONSTRAINT pk_ocean_pkid PRIMARY KEY(pkid);");
+//                    st.execute("ALTER TABLE seasandoceans ALTER COLUMN pkid SET NOT NULL;");
+//                    st.execute("ALTER TABLE seasandoceans ADD CONSTRAINT pk_ocean_pkid PRIMARY KEY(pkid);");
+
+                    st.execute("DELETE FROM seasandoceans");
+
                     st.execute("CREATE SPATIAL INDEX ocean_spatialindex ON seasandoceans(the_geom);");
+
+                    st.execute("INSERT INTO seasandoceans SELECT * FROM tmpseasandoceans;");
+
                     st.execute("DROP TABLE IF EXISTS tmpseasandoceans;");
                     try (ResultSet rs = st.executeQuery("SELECT count(*) AS rowcount FROM seasandoceans")) {
                         while (rs.next()) {
                             String tmp = "There is " + rs.getInt("rowcount") + " seas and oceans in the database.";
-                            System.out.println(tmp);
+                            LogService.getService(GISHandler.class).logApplicationInfo(tmp);
+                        }
+                    }
+                    try (ResultSet rs = st.executeQuery("SELECT * FROM INFORMATION_SCHEMA.INDEXES WHERE TABLE_NAME = 'seasandoceans'")) {
+                        while (rs.next()) {
+                            LogService.getService(GISHandler.class).logApplicationDebug(rs.getString("INDEX_NAME"));
                         }
                     }
                     //System.out.println("SHP_COUNTRIES_PATH " + AAProperties.SHP_COUNTRIES_PATH);
                     st.execute("DROP TABLE IF EXISTS countries;");
                     st.execute("DROP TABLE IF EXISTS tmpcountries;");
                     st.execute("CALL FILE_TABLE('" + countryShapePath + "', 'tmpcountries')");
-                    st.execute("CREATE TABLE countries AS SELECT ROW_NUMBER() OVER ( ) AS pkid, * FROM tmpcountries;");
-                    st.execute("ALTER TABLE countries ALTER COLUMN pkid SET NOT NULL;");
-                    st.execute("ALTER TABLE countries ADD CONSTRAINT pk_countries_pkid PRIMARY KEY(pkid);");
+                    st.execute("CREATE TABLE countries AS SELECT  * FROM tmpcountries;");
+//                    st.execute("ALTER TABLE countries ALTER COLUMN pkid SET NOT NULL;");
+//                    st.execute("ALTER TABLE countries ADD CONSTRAINT pk_countries_pkid PRIMARY KEY(pkid);");
+
+                    st.execute("DELETE FROM countries");
+
                     st.execute("CREATE SPATIAL INDEX countries_spatialindex ON countries (the_geom);");
+
+                    st.execute("INSERT INTO countries SELECT * FROM tmpcountries;");
                     st.execute("DROP TABLE IF EXISTS tmpcountries;");
                     try (ResultSet rs = st.executeQuery("SELECT count(*) AS rowcount FROM countries")) {
                         while (rs.next()) {
                             String tmp = "There is " + rs.getInt("rowcount") + " countries in the database.";
-                            System.out.println(tmp);
+                            LogService.getService(GISHandler.class).logApplicationInfo(tmp);
+                        }
+                    }
+                    try (ResultSet rs = st.executeQuery("SELECT * FROM INFORMATION_SCHEMA.INDEXES WHERE TABLE_NAME = 'countries';")) {
+                        while (rs.next()) {
+                            LogService.getService(GISHandler.class).logApplicationDebug(rs.getString("INDEX_NAME"));
                         }
                     }
 //System.out.println("SHP_COUNTRIES_PATH " + AAProperties.SHP_COUNTRIES_PATH);
                     st.execute("DROP TABLE IF EXISTS harbour;");
                     st.execute("DROP TABLE IF EXISTS tmpharbour;");
                     st.execute("CALL FILE_TABLE('" + harbourShapePath + "', 'tmpharbour')");
-                    st.execute("CREATE TABLE harbour AS SELECT ROW_NUMBER() OVER ( ) AS pkid, * FROM tmpharbour;");
-                    st.execute("ALTER TABLE harbour ALTER COLUMN pkid SET NOT NULL;");
-                    st.execute("ALTER TABLE harbour ADD CONSTRAINT pk_harbour_pkid PRIMARY KEY(pkid);");
+                    st.execute("CREATE TABLE harbour AS SELECT  * FROM tmpharbour;");
+//                    st.execute("ALTER TABLE harbour ALTER COLUMN pkid SET NOT NULL;");
+//                    st.execute("ALTER TABLE harbour ADD CONSTRAINT pk_harbour_pkid PRIMARY KEY(pkid);");
+
+                    st.execute("DELETE FROM harbour");
+
                     st.execute("CREATE SPATIAL INDEX harbour_spatialindex ON harbour (the_geom);");
+
+                    st.execute("INSERT INTO harbour SELECT * FROM tmpharbour;");
+
                     st.execute("DROP TABLE IF EXISTS tmpharbour;");
                     try (ResultSet rs = st.executeQuery("SELECT count(*) AS rowcount FROM harbour")) {
                         while (rs.next()) {
                             String tmp = "There is " + rs.getInt("rowcount") + " harbours in the database.";
-                            System.out.println(tmp);
+                            LogService.getService(GISHandler.class).logApplicationInfo(tmp);
                         }
                     }
-
+                    try (ResultSet rs = st.executeQuery("SELECT INDEX_NAME FROM INFORMATION_SCHEMA.INDEXES WHERE TABLE_NAME = 'harbour'")) {
+                        while (rs.next()) {
+                            LogService.getService(GISHandler.class).logApplicationDebug(rs.getString("INDEX_NAME"));
+                        }
+                    }
                 }
             } catch (SQLException ex) {
                 JDBCUtilities.printSQLException(ex);
