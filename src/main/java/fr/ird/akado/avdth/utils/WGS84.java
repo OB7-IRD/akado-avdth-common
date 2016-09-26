@@ -35,11 +35,11 @@ public class WGS84 {
         // r
         int r = 6366;
 
-        double lat1 = -2.57;
-        double lon1 = 8.59;
+        double lat1 = 14.683333333333334;
+        double lon1 =-17.26;
 
-        double lat2 = -2.57;
-        double lon2 = 9.01;
+        double lat2 = 14.41;
+        double lon2 = -17.24;
 
         long tempsT1;
         long tempsT2;
@@ -76,12 +76,12 @@ public class WGS84 {
                 + ""
         );
         r = 3963;
-        double distanceEnMiles = distance * r;
-        double distanceEloignéEnMiles = distanceEloigné * r;
+        double distanceEnMilles = distance * r;
+        double distanceEloignéEnMilles = distanceEloigné * r;
         System.out.println(
                 "Distance      : " + decimalFormat.format(distance) + " (" + distance + ")\n"
-                + "Distance (miles) calcul précis pour courtes distances         : " + decimalFormat.format(distanceEnMiles) + " miles (" + distanceEnMiles + ")\n"
-                + "Distance (miles) calcul non précis pour distances non courtes : " + decimalFormat.format(distanceEloignéEnMiles) + " miles (" + distanceEloignéEnMiles + ")\n"
+                + "Distance (milles) calcul précis pour courtes distances         : " + decimalFormat.format(distanceEnMilles) + " milles (" + distanceEnMilles + ")\n"
+                + "Distance (milles) calcul non précis pour distances non courtes : " + decimalFormat.format(distanceEloignéEnMilles) + " milles (" + distanceEloignéEnMilles + ")\n"
                 + ""
         );
 
