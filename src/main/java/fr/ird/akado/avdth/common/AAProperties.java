@@ -43,6 +43,8 @@ public class AAProperties {
     public static final String KEY_ACTIVITY_INSPECTOR = "activity_inspector";
     public static final String KEY_WARNING_INSPECTOR = "warning_inspector";
 
+    public static final String KEY_AKADO_INSPECTOR = "akado_inspector";
+
     public static final String KEY_ANAPO_DB_PATH = "anapo_db";
     public static final String KEY_RESULTS_OUTPUT = "results_output";
 
@@ -73,9 +75,13 @@ public class AAProperties {
 
     public final static String KEY_THRESHOLD_CLASS_ONE = "threshold_class_one";
     public final static String KEY_THRESHOLD_CLASS_TWO = "threshold_class_two";
+    public final static String KEY_NB_PROC = "nb_proc";
 
-    public static double THRESHOLD_CLASS_ONE = 15d;
-    public static double THRESHOLD_CLASS_TWO = 30d;
+    public static double THRESHOLD_CLASS_ONE = 10d;
+    public static double THRESHOLD_CLASS_TWO = 20d;
     public static String ANAPO_VMS_COUNTRY = "1|41";
     public static String RESULTS_OUTPUT = "active";
+    public static int NB_PROC = 1;
+    public static String AKADO_INSPECTOR;
+
 }
