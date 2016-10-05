@@ -33,13 +33,13 @@ public class WGS84 {
         decimalFormat.applyPattern("###0.##########");
 
         // r
-        int r = 6366;
+        int r = 6356;
 
-        double lat1 = 14.683333333333334;
-        double lon1 =-17.26;
+        double lat1 = 15;
+        double lon1 =-17.1666666667;
 
-        double lat2 = 14.41;
-        double lon2 = -17.24;
+        double lat2 = 15.0666666667;
+        double lon2 = -17.4666666667;
 
         long tempsT1;
         long tempsT2;
@@ -58,16 +58,16 @@ public class WGS84 {
         lon2 = Math.toRadians(lon2);
 
         tempsT1 = System.nanoTime();
-        double distance = distanceVolOiseauEntre2PointsAvecPrécision(lat1, lon1, lat2, lon2);
+        double distance = distanceVolOiseauEntre2PointsAvecPrecision(lat1, lon1, lat2, lon2);
         tempsT2 = System.nanoTime();
         System.out.println("Temps (AvecPrécision) : " + String.format("%10d", (tempsT2 - tempsT1)) + " ns");
         double distanceEnKm = distance * r;
 
         tempsT1 = System.nanoTime();
-        double distanceEloigné = distanceVolOiseauEntre2PointsSansPrécision(lat1, lon1, lat2, lon2);
+        double distanceEloigne = distanceVolOiseauEntre2PointsSansPrecision(lat1, lon1, lat2, lon2);
         tempsT2 = System.nanoTime();
         System.out.println("Temps (SansPrécision) : " + String.format("%10d", (tempsT2 - tempsT1)) + " ns");
-        double distanceEloignéEnKm = distanceEloigné * r;
+        double distanceEloignéEnKm = distanceEloigne * r;
 
         System.out.println(
                 "Distance      : " + decimalFormat.format(distance) + " (" + distance + ")\n"
@@ -75,13 +75,13 @@ public class WGS84 {
                 + "Distance (km) calcul non précis pour distances non courtes : " + decimalFormat.format(distanceEloignéEnKm) + " km (" + distanceEloignéEnKm + ")\n"
                 + ""
         );
-        r = 3963;
+        r = 3431;
         double distanceEnMilles = distance * r;
-        double distanceEloignéEnMilles = distanceEloigné * r;
+        double distanceEloigneEnMilles = distanceEloigne * r;
         System.out.println(
                 "Distance      : " + decimalFormat.format(distance) + " (" + distance + ")\n"
                 + "Distance (milles) calcul précis pour courtes distances         : " + decimalFormat.format(distanceEnMilles) + " milles (" + distanceEnMilles + ")\n"
-                + "Distance (milles) calcul non précis pour distances non courtes : " + decimalFormat.format(distanceEloignéEnMilles) + " milles (" + distanceEloignéEnMilles + ")\n"
+                + "Distance (milles) calcul non précis pour distances non courtes : " + decimalFormat.format(distanceEloigneEnMilles) + " milles (" + distanceEloigneEnMilles + ")\n"
                 + ""
         );
 
@@ -108,7 +108,7 @@ public class WGS84 {
      * @param lon2
      * @return
      */
-    public static double distanceVolOiseauEntre2PointsSansPrécision(double lat1, double lon1, double lat2, double lon2) {
+    public static double distanceVolOiseauEntre2PointsSansPrecision(double lat1, double lon1, double lat2, double lon2) {
 
         // d=acos(sin(lat1)*sin(lat2)+cos(lat1)*cos(lat2)*cos(lon1-lon2))
         return Math.acos(
@@ -132,8 +132,8 @@ public class WGS84 {
      * @param lon2
      * @return
      */
-    public static double distanceVolOiseauEntre2PointsAvecPrécision(double lat1, double lon1, double lat2, double lon2) {
-
+    public static double distanceVolOiseauEntre2PointsAvecPrecision(double lat1, double lon1, double lat2, double lon2) {
+//        System.out.println(lat1 +" " + lon1 + " ; " + lat2 + " "+lon2  );
         // d=2*asin(sqrt((sin((lat1-lat2)/2))^2 + cos(lat1)*cos(lat2)*(sin((lon1- lon2)/2))^2))
         return 2 * Math.asin(
                 Math.sqrt(
