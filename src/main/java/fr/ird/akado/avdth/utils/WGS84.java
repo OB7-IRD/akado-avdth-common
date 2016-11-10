@@ -67,12 +67,12 @@ public class WGS84 {
         double distanceEloigne = distanceVolOiseauEntre2PointsSansPrecision(lat1, lon1, lat2, lon2);
         tempsT2 = System.nanoTime();
         System.out.println("Temps (SansPrécision) : " + String.format("%10d", (tempsT2 - tempsT1)) + " ns");
-        double distanceEloignéEnKm = distanceEloigne * r;
+        double distanceEloigneEnKm = distanceEloigne * r;
 
         System.out.println(
                 "Distance      : " + decimalFormat.format(distance) + " (" + distance + ")\n"
                 + "Distance (km) calcul précis pour courtes distances         : " + decimalFormat.format(distanceEnKm) + " km (" + distanceEnKm + ")\n"
-                + "Distance (km) calcul non précis pour distances non courtes : " + decimalFormat.format(distanceEloignéEnKm) + " km (" + distanceEloignéEnKm + ")\n"
+                + "Distance (km) calcul non précis pour distances non courtes : " + decimalFormat.format(distanceEloigneEnKm) + " km (" + distanceEloigneEnKm + ")\n"
                 + ""
         );
         r = 3431;
