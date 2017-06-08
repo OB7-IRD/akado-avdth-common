@@ -32,6 +32,7 @@ public class AAProperties {
     public static final String KEY_SHP_COUNTRIES_PATH = "SHP_COUNTRIES";
     public static final String KEY_SHP_HARBOUR_PATH = "SHP_HARBOUR";
     public static final String KEY_SHP_OCEAN_PATH = "SHP_IHO_OCEANS";
+    public static final String KEY_SHP_EEZ_PATH = "SHP_EEZ_IRD";
     public static final String KEY_DATE_FORMAT_XLS = "date_xls";
 
     public static final String KEY_SAMPLE_INSPECTOR = "sample_inspector";
@@ -56,6 +57,7 @@ public class AAProperties {
     public static String SHP_COUNTRIES_PATH;
     public static String SHP_OCEAN_PATH;
     public static String SHP_HARBOUR_PATH;
+    public static String SHP_EEZ_PATH;
 
     public static String SAMPLE_INSPECTOR;
     public static String WELL_INSPECTOR;

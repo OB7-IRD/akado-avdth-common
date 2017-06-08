@@ -46,6 +46,7 @@ public class GISHandler {
 
     private String dbPath;
     private String countryShapePath;
+    private String eezShapePath;
     private String oceanShapePath;
 
     public static GISHandler getService() {
@@ -53,7 +54,7 @@ public class GISHandler {
     }
     private String harbourShapePath;
 
-    public void init(String directoryPath, String countryShapePath, String oceanShapePath, String harbourShapePath) throws AkadoException {
+    public void init(String directoryPath, String countryShapePath, String oceanShapePath, String harbourShapePath, String eezShapePath) throws AkadoException {
         if (directoryPath == null) {
             throw new AkadoException("The directory path is null.");
         } else {
@@ -62,6 +63,7 @@ public class GISHandler {
         this.countryShapePath = countryShapePath;
         this.oceanShapePath = oceanShapePath;
         this.harbourShapePath = harbourShapePath;
+        this.eezShapePath = eezShapePath;
     }
 
     /**
@@ -87,6 +89,12 @@ public class GISHandler {
      * Create the GIS databe by loading the file data
      *
      */
+    public void create(boolean force) {
+        if(force){
+            delete();
+        }
+        create();
+    }
     public void create() {
 
         LogService.getService(GISHandler.class).logApplicationDebug("File :" + dbPath + ", File exits " + (new File(dbPath + ".h2.db")).exists());
@@ -95,30 +103,17 @@ public class GISHandler {
 
             try {
                 Class.forName("org.h2.Driver");
-                //System.out.println("J'ai chope le driver");
+
                 try (Connection connection = DriverManager.getConnection("jdbc:h2:" + dbPath);
                         Statement st = connection.createStatement()) {
                     // Import spatial functions, domains and drivers
                     // If you are using a file database, you have to do only that once.
                     //System.out.println("Apres STatement");
                     CreateSpatialExtension.initSpatialExtension(connection);
-//                    System.out.println("SHP_OCEAN_PATH " + oceanShapePath);
+                    LogService.getService(GISHandler.class).logApplicationDebug("SHP_OCEAN_PATH " + oceanShapePath);
                     st.execute("DROP TABLE IF EXISTS seasandoceans;");
-                    st.execute("DROP TABLE IF EXISTS tmpseasandoceans;");
-                    st.execute("CALL SHPRead('" + oceanShapePath + "', 'tmpseasandoceans');");
-//                    st.execute("CALL FILE_TABLE('" + AAProperties.SHP_OCEAN_PATH + "', 'tmpseasandoceans')");
-                    st.execute("CREATE TABLE seasandoceans AS SELECT  * FROM tmpseasandoceans;");
-//                    st.execute("CALL SHPRead('" + AAProperties.SHP_OCEAN_PATH + "', 'seasandoceans');");
-//                    st.execute("ALTER TABLE seasandoceans ALTER COLUMN pkid SET NOT NULL;");
-//                    st.execute("ALTER TABLE seasandoceans ADD CONSTRAINT pk_ocean_pkid PRIMARY KEY(pkid);");
-
-                    st.execute("DELETE FROM seasandoceans");
-
+                    st.execute("CALL SHPREAD('" + oceanShapePath + "', 'seasandoceans')");
                     st.execute("CREATE SPATIAL INDEX ocean_spatialindex ON seasandoceans(the_geom);");
-
-                    st.execute("INSERT INTO seasandoceans SELECT * FROM tmpseasandoceans;");
-
-                    st.execute("DROP TABLE IF EXISTS tmpseasandoceans;");
                     try (ResultSet rs = st.executeQuery("SELECT count(*) AS rowcount FROM seasandoceans")) {
                         while (rs.next()) {
                             String tmp = "There is " + rs.getInt("rowcount") + " seas and oceans in the database.";
@@ -130,20 +125,10 @@ public class GISHandler {
                             LogService.getService(GISHandler.class).logApplicationDebug(rs.getString("INDEX_NAME"));
                         }
                     }
-                    //System.out.println("SHP_COUNTRIES_PATH " + AAProperties.SHP_COUNTRIES_PATH);
+                    LogService.getService(GISHandler.class).logApplicationDebug("SHP_COUNTRIES_PATH " + AAProperties.SHP_COUNTRIES_PATH);
                     st.execute("DROP TABLE IF EXISTS countries;");
-                    st.execute("DROP TABLE IF EXISTS tmpcountries;");
-                    st.execute("CALL FILE_TABLE('" + countryShapePath + "', 'tmpcountries')");
-                    st.execute("CREATE TABLE countries AS SELECT  * FROM tmpcountries;");
-//                    st.execute("ALTER TABLE countries ALTER COLUMN pkid SET NOT NULL;");
-//                    st.execute("ALTER TABLE countries ADD CONSTRAINT pk_countries_pkid PRIMARY KEY(pkid);");
-
-                    st.execute("DELETE FROM countries");
-
+                    st.execute("CALL SHPREAD('" + countryShapePath + "', 'countries')");
                     st.execute("CREATE SPATIAL INDEX countries_spatialindex ON countries (the_geom);");
-
-                    st.execute("INSERT INTO countries SELECT * FROM tmpcountries;");
-                    st.execute("DROP TABLE IF EXISTS tmpcountries;");
                     try (ResultSet rs = st.executeQuery("SELECT count(*) AS rowcount FROM countries")) {
                         while (rs.next()) {
                             String tmp = "There is " + rs.getInt("rowcount") + " countries in the database.";
@@ -155,21 +140,10 @@ public class GISHandler {
                             LogService.getService(GISHandler.class).logApplicationDebug(rs.getString("INDEX_NAME"));
                         }
                     }
-//System.out.println("SHP_COUNTRIES_PATH " + AAProperties.SHP_COUNTRIES_PATH);
+                    LogService.getService(GISHandler.class).logApplicationDebug("SHP_HARBOUR_PATH " + harbourShapePath);
                     st.execute("DROP TABLE IF EXISTS harbour;");
-                    st.execute("DROP TABLE IF EXISTS tmpharbour;");
-                    st.execute("CALL FILE_TABLE('" + harbourShapePath + "', 'tmpharbour')");
-                    st.execute("CREATE TABLE harbour AS SELECT  * FROM tmpharbour;");
-//                    st.execute("ALTER TABLE harbour ALTER COLUMN pkid SET NOT NULL;");
-//                    st.execute("ALTER TABLE harbour ADD CONSTRAINT pk_harbour_pkid PRIMARY KEY(pkid);");
-
-                    st.execute("DELETE FROM harbour");
-
+                    st.execute("CALL SHPREAD('" + harbourShapePath + "', 'harbour')");
                     st.execute("CREATE SPATIAL INDEX harbour_spatialindex ON harbour (the_geom);");
-
-                    st.execute("INSERT INTO harbour SELECT * FROM tmpharbour;");
-
-                    st.execute("DROP TABLE IF EXISTS tmpharbour;");
                     try (ResultSet rs = st.executeQuery("SELECT count(*) AS rowcount FROM harbour")) {
                         while (rs.next()) {
                             String tmp = "There is " + rs.getInt("rowcount") + " harbours in the database.";
@@ -177,6 +151,22 @@ public class GISHandler {
                         }
                     }
                     try (ResultSet rs = st.executeQuery("SELECT INDEX_NAME FROM INFORMATION_SCHEMA.INDEXES WHERE TABLE_NAME = 'harbour'")) {
+                        while (rs.next()) {
+                            LogService.getService(GISHandler.class).logApplicationDebug(rs.getString("INDEX_NAME"));
+                        }
+                    }
+
+                    LogService.getService(GISHandler.class).logApplicationDebug("SHP_EEZ_PATH " + eezShapePath);
+                    st.execute("DROP TABLE IF EXISTS eez;");
+                    st.execute("CALL SHPREAD('" + eezShapePath + "', 'eez')");
+                    st.execute("CREATE SPATIAL INDEX eez_spatialindex ON eez (the_geom);");
+                    try (ResultSet rs = st.executeQuery("SELECT count(*) AS rowcount FROM eez")) {
+                        while (rs.next()) {
+                            String tmp = "There is " + rs.getInt("rowcount") + " eez in the database.";
+                            LogService.getService(GISHandler.class).logApplicationInfo(tmp);
+                        }
+                    }
+                    try (ResultSet rs = st.executeQuery("SELECT INDEX_NAME FROM INFORMATION_SCHEMA.INDEXES WHERE TABLE_NAME = 'eez'")) {
                         while (rs.next()) {
                             LogService.getService(GISHandler.class).logApplicationDebug(rs.getString("INDEX_NAME"));
                         }
