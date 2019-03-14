@@ -82,6 +82,7 @@ public class AAProperties {
     public static double THRESHOLD_CLASS_ONE = 10d;
     public static double THRESHOLD_CLASS_TWO = 20d;
     public static String ANAPO_VMS_COUNTRY = "1|41";
+    public static String VESSEL_SELECTED;
     public static String RESULTS_OUTPUT = "active";
     public static int NB_PROC = 1;
     public static String AKADO_INSPECTOR;
