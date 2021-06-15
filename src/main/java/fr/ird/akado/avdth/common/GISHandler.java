@@ -58,7 +58,9 @@ public class GISHandler {
         if (directoryPath == null) {
             throw new AkadoException("The directory path is null.");
         } else {
-            this.dbPath = directoryPath + File.separator + OT_DB_GIS_NAME;
+            this.dbPath = directoryPath 
+                    //+ File.separator 
+                    + OT_DB_GIS_NAME;
         }
         this.countryShapePath = countryShapePath;
         this.oceanShapePath = oceanShapePath;
@@ -97,7 +99,7 @@ public class GISHandler {
     }
     public void create() {
 
-        LogService.getService(GISHandler.class).logApplicationDebug("File :" + dbPath + ", File exits " + (new File(dbPath + ".h2.db")).exists());
+        LogService.getService(GISHandler.class).logApplicationDebug("File: " + dbPath + ", File exits: " + (new File(dbPath + ".h2.db")).exists());
         if (!(new File(dbPath + ".h2.db")).exists()) {
             LogService.getService(GISHandler.class).logApplicationInfo("Create the GIS database.");
 
