@@ -75,7 +75,7 @@ public class GISHandler {
      * @return true if exists
      */
     public boolean exists() {
-        return (new File(dbPath + ".h2.db")).exists();
+        return (new File(dbPath + ".db")).exists();
     }
 
     /**
@@ -84,7 +84,7 @@ public class GISHandler {
      * @return true if the db are deleted
      */
     public boolean delete() {
-        return (new File(dbPath + ".h2.db")).delete();
+        return (new File(dbPath + ".db")).delete();
     }
 
     /**
@@ -99,8 +99,8 @@ public class GISHandler {
     }
     public void create() {
 
-        LogService.getService(GISHandler.class).logApplicationDebug("File: " + dbPath + ", File exits: " + (new File(dbPath + ".h2.db")).exists());
-        if (!(new File(dbPath + ".h2.db")).exists()) {
+        LogService.getService(GISHandler.class).logApplicationDebug("File: " + dbPath + ", File exits: " + (new File(dbPath + ".db")).exists());
+        if (!(new File(dbPath + ".db")).exists()) {
             LogService.getService(GISHandler.class).logApplicationInfo("Create the GIS database.");
 
             try {

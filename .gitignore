@@ -1,3 +1,5 @@
 /akado-avdth-common.iml
 /.idea
 /target/
+/.vscode
+/.settings
