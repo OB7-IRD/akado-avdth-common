@@ -19,6 +19,7 @@ package fr.ird.akado.avdth.common;
 import fr.ird.common.JDBCUtilities;
 import fr.ird.common.log.LogService;
 import java.io.File;
+import java.nio.file.Path;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
@@ -58,9 +59,7 @@ public class GISHandler {
         if (directoryPath == null) {
             throw new AkadoException("The directory path is null.");
         } else {
-            this.dbPath = directoryPath 
-                    //+ File.separator 
-                    + OT_DB_GIS_NAME;
+            this.dbPath = Path.of(directoryPath).resolve(OT_DB_GIS_NAME).toFile().getAbsolutePath();
         }
         this.countryShapePath = countryShapePath;
         this.oceanShapePath = oceanShapePath;
